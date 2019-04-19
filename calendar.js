@@ -27,6 +27,7 @@ var update = function(date) {
 }
 
 function displayMonth() {
+  debugger;
   //Update the title
   var titleMonth = document.getElementById("demo"),
     inputMonth = document.getElementById("form_month"),
@@ -54,7 +55,7 @@ function displayMonth() {
 
 function previousMonth() {
   var d = new Date();
-  var nextMonth = d.getMonth() + 1;
+  var nextMonth = d.getMonth() - 1;
   console.log(nextMonth);
   //Update the title
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
