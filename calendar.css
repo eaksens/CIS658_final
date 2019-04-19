@@ -1,0 +1,22 @@
+
+#calendarTable {
+    border: 1px solid black;
+}
+
+#leftArrow{
+  height: 50px;
+  width: 50px;
+}
+
+#rightArrow{
+  height: 50px;
+  width: 50px;
+}
+
+#calendarTable{
+  border: 1px solid black;
+}
+
+ th, tr, td{
+   border: 1px solid black;
+ }
