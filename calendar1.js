@@ -13,10 +13,69 @@ function initializeCalendar() {
   date = new Date();
 }
 
+function submitDate(){
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  month = document.getElementById("form_month").value;
+  console.log(month);
+  year = document.getElementById("form_year").value;
+  console.log(year);
+  switch (month) {
+    case "January":
+      date = new Date(year, 0, 1);
+      console.log(date);
+      break;
+    case "February":
+      date = new Date(year, 1, 1);
+      console.log(date);
+      break;
+    case "March":
+      date = new Date(year, 2, 1);
+      console.log(date);
+    break;
+    case "April":
+      date = new Date(year, 3, 1);
+      console.log(date);
+      break;
+    case "May":
+      date = new Date(year, 4, 1);
+      console.log(date);
+      break;
+    case "June":
+      date = new Date(year, 5, 1);
+      console.log(date);
+    break;
+    case "July":
+      date = new Date(year, 6, 1);
+      console.log(date);
+      break;
+    case "August":
+      date = new Date(year, 7, 1);
+      console.log(date);
+      break;
+    case "September":
+      date = new Date(year, 8, 1);
+      console.log(date);
+    break;
+    case "October":
+      date = new Date(year, 9, 1);
+      console.log(date);
+      break;
+    case "November":
+      date = new Date(year, 10, 1);
+      console.log(date);
+      break;
+    case "December":
+      date = new Date(year, 11, 1);
+      console.log(date);
+    break;
+  }
+
+  displayCalendar();
+}
+
 function displayCalendar() {
   fillDays();
-  setMonthTitle();
-  setYearTitle();
+  setMonthYearTitle();
 }
 
 //will populate calendar with days, 1-31, depending on a month
