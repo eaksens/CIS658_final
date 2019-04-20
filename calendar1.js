@@ -1,62 +1,170 @@
 "use strict";
 
-// function that creates dummy data for demonstration
-function createDummyData() {
-  var date = new Date();
-  var data = {};
+/*
+ * Updates calendar.html to display the desired month.
+ *
+ * @param date a JavaScript Date object set to a day in the month to be displayed.
+ */
+var i, j;
+var date;
 
-  for (var i = 0; i < 10; i++) {
-    data[date.getFullYear() + i] = {};
-
-    for (var j = 0; j < 12; j++) {
-      data[date.getFullYear() + i][j + 1] = {};
-
-      for (var k = 0; k < Math.ceil(Math.random() * 10); k++) {
-        var l = Math.ceil(Math.random() * 28);
-
-        try {
-          data[date.getFullYear() + i][j + 1][l].push({
-            startTime: "10:00",
-            endTime: "12:00",
-            text: "Some Event Here"
-          });
-        } catch (e) {
-          data[date.getFullYear() + i][j + 1][l] = [];
-          data[date.getFullYear() + i][j + 1][l].push({
-            startTime: "10:00",
-            endTime: "12:00",
-            text: "Some Event Here"
-          });
-        }
-      }
-    }
-  }
-
-  return data;
+function initializeCalendar()
+{
+  date = new Date();
 }
 
-// creating the dummy static data
-var data = createDummyData();
+function displayCalendar() {
+  fillDays();
+  setMonthTitle();
+  setYearTitle();
+}
 
-// initializing a new calendar object, that will use an html container to create itself
-var calendar = new Calendar(
-  "calendarContainer", // id of html container for calendar
-  "small", // size of calendar, can be small | medium | large
-  [
-    "Wednesday", // left most day of calendar labels
-    3 // maximum length of the calendar labels
-  ],
-  [
-    "#E91E63", // primary color
-    "#C2185B", // primary dark color
-    "#FFFFFF", // text color
-    "#F8BBD0" // text dark color
-  ]
-);
+//will populate calendar with days, 1-31, depending on a month
+function fillDays(){
+  var i;
+  var calendarDays = document
+  .getElementById("calendarTable")
+  .getElementsByTagName("tbody")[0]
+  .getElementsByClassName("day");
 
-// initializing a new organizer object, that will use an html container to create itself
-var organizer = new Organizer(
-  "organizerContainer", // id of html container for calendar
-  calendar, // defining the calendar that the organizer is related to
-  data // giving the organizer the static data that should be displayed
-);
+  var month = date.getMonth();
+  var year = date.getFullYear();
+  var daysOffset = new Date(year,month,1).getDay();
+  var numberOfDays = new Date(year,month+1,0).getDate(); //0 for day gives last day of the PREVIOUS month
+
+  //clear cells
+  for(i=0; i<calendarDays.length;i++){
+    calendarDays[i].innerHTML = "&nbsp";
+  }
+
+  //populate cells with dates, 1-31
+  for(i=1; i<=numberOfDays; i++)
+  {
+    calendarDays[daysOffset].innerHTML = i;
+    daysOffset++;
+  }
+}
+
+function getPreviousMonth(){
+  var day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
+  if(month == 0){
+    month = 11;
+    year--;
+  } else {
+    month--;
+  }
+  date = new Date(year,month,day);
+
+  return date;
+}
+
+function getNextMonth(){
+  var day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
+  if(month == 11){
+    month = 0;
+    year++;
+  } else {
+    month++;
+  }
+  date = new Date(year,month,day);
+
+  return date;
+}
+
+function setMonthTitle(){
+  //update year header on a table
+}
+
+function setYearTitle(){
+  //update month header on a table
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var update = function(date) {
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var daysInCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  // *** Remember to use getElementsByTagName when possible.  It avoids a lot of the hassle of looking through each child. ***
+
+
+  // Calculate the previous and next month
+  // (You may use this for adding links to the left arrow)
+  var nextMonth = date.getMonth() + 1;
+  var nextYear = date.getFullYear();
+  if (nextMonth >= 12) {
+    // Remember:  Months are numbered beginning with 0.
+    nextMonth = 0;
+    nextYear++;
+  }
+
+  return daysInCurrentMonth;
+}
+
+
+
+function nextMonth(){
+  getNextMonth();
+  displayCalendar();
+
+  /*
+  var d = getNextMonth();
+  var nextMonth = d.getMonth() + 1;
+  console.log(nextMonth);
+  //Update the title
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var titleMonth = document.getElementById("demo");
+  var inputMonth = months[nextMonth];
+  console.log(inputMonth);
+
+  titleMonth.innerHTML = inputMonth;
+  */
+}
+
+function previousMonth() {
+  getPreviousMonth();
+  displayCalendar();
+
+  /*
+  var d = getPreviousMonth();
+  var nextMonth = d.getMonth();
+  console.log(nextMonth);
+  //Update the title
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var titleMonth = document.getElementById("demo");
+  var inputMonth = months[nextMonth];
+  console.log(inputMonth);
+
+  titleMonth.innerHTML = inputMonth;
+  */
+}

@@ -6,6 +6,7 @@
  * @param date a JavaScript Date object set to a day in the month to be displayed.
  */
 var i, j;
+var daysInCurrentMonth;
 
 var update = function(date) {
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -27,7 +28,7 @@ var update = function(date) {
 }
 
 function displayMonth() {
-  debugger;
+
   //Update the title
   var titleMonth = document.getElementById("demo"),
     inputMonth = document.getElementById("form_month"),
@@ -48,10 +49,34 @@ function displayMonth() {
     for (var j = 0, col; col = row.cells[j]; j++) {
       //iterate through columns
       //columns would be accessed using the "col" variable assigned in the for loop
-      col.innerHTML = j;
+    var dayNumber;
+        switch (i) {
+          case 1:
+            dayNumber = j;
+            break;
+          case 2:
+            dayNumber = j + 7;
+            break;
+          case 3:
+            dayNumber = j + 14;
+            break;
+          case 4:
+            dayNumber = j + 21;
+            break;
+          case 5:
+            dayNumber = j + 28;
+            break;
+          case 6:
+            dayNumber = j + 35;
+            break;
+        }
+        if(dayNumber <= daysInCurrentMonth){
+          col.innerHTML = dayNumber;
+        }
+      }
     }
   }
-}
+
 
 function previousMonth() {
   var d = new Date();
